@@ -27,6 +27,24 @@ sub main()
 	Set wb1 = app.WorkBooks.Open(file1)
 	Set wb2 = app.WorkBooks.Open(file2)
 	sheet_count = wb1.sheets.count
+
+
+	Dim i, j
+
+
+	for i = 1 to sheet_count
+		
+
+
+
+
+	next 
+
+
+
+
+
+
 	name = wb1.sheets(1).name
 	msgbox(name)
 
