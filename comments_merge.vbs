@@ -22,50 +22,36 @@ file2 = current_directory + "\" + pre_reviewed_file
 call main()
 
 sub main()
-	Dim wb1, wb2, sheet_count, name
-	Dim index, comments_index
+	Dim wb1, wb2, sheet_count
 	Set wb1 = app.WorkBooks.Open(file1)
 	Set wb2 = app.WorkBooks.Open(file2)
 	sheet_count = wb1.sheets.count
 
-
-	Dim i, j
-
-
-	for i = 1 to sheet_count
-
-	next 
-
-
-
-
-
-
-	name = wb1.sheets(1).name
-	msgbox(name)
-
-	index = get_max_index(wb1.sheets(1))
-	msgbox(index)
-	' first level
-
-
-	comments_index = wb1.sheets(1).rows(3).find("comments", , -4163, 1).cells(1).column
-	msgbox(comments_index)
-
-
-	wb2.sheets(name).AutoFilterMode = False
-
 	Dim i
-	for i = 1 to (index-1)
-		call my_filter(wb2.sheets(name), i, wb1.sheets(1).rows(4).cells(i).text)
-	next
+	for i = 1 to sheet_count
+		Dim sheet_name, index, comments_index
+		sheet_name = wb1.sheets(i).name
+		index = get_max_index(wb1.sheets(1))
+		comments_index = wb1.sheets(1).rows(3).find("comments", , -4163, 1).cells(1).column
+		WScript.echo(sheet_name+" start...")
+		Dim row
+		for each row in wb1.sheets(i).range("A4:AZ5000").rows
+			WScript.echo("row "&row.row)
+			if row.cells(2) = "" then exit for
+			Dim j
+			wb2.sheets(sheet_name).AutoFilterMode = False
 
-	Dim rng
-	Set rng = wb2.sheets(name).range("A4:AZ5000").columns(comments_index).specialcells(12)
+			index = 3
 
-	msgbox(rng.value)
-
-	'wb2.sheets(name).AutoFilterMode = False
+			for j = 1 to index-1
+				call my_filter(wb2.sheets(sheet_name), j, row.cells(j).text)
+			next
+			Dim rng
+			Set rng = wb2.sheets(sheet_name).range("A4:AZ5000").columns(comments_index).specialcells(12)
+			if Not rng is nothing and rng.text <> "" then row.cells(comments_index).value = rng.value
+		next
+		WScript.echo(sheet_name+" end...")
+	next 
 	wb1.close(true)
 	wb2.close(false)
 end sub
