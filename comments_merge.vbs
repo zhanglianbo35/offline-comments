@@ -1,5 +1,4 @@
 ' Created By Kai Zhou Nov 23, 2016
-
 Option Explicit
 
 ' Global variables
@@ -41,8 +40,7 @@ sub main()
 			Dim j
 			wb2.sheets(sheet_name).AutoFilterMode = False
 
-			index = 3
-
+			'index = 3
 			for j = 1 to index-1
 				call my_filter(wb2.sheets(sheet_name), j, row.cells(j).text)
 			next
@@ -72,7 +70,7 @@ end function
 
 sub my_filter(sheet, index, val)
 	With sheet.rows(3)
-        'set autofilter'
+        'set autofilter
         .AutoFilter index, "="&val
     End With
 End sub
