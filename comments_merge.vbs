@@ -68,6 +68,18 @@ function get_max_index(sheet)
 	next
 end function
 
+function get_comments_index(sheet)
+	Dim row, cell
+	Set row = sheet.rows(3)
+	for each cell in row.cells
+		'msgbox(cell.text)
+		if ucase(cell.text) = "COMMENTS"  then 
+			get_comments_index = cell.column
+			exit for 
+		end if
+	next
+end function
+
 sub my_filter(sheet, index, val)
 	With sheet.rows(3)
         'set autofilter
