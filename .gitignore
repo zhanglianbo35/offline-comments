@@ -47,3 +47,9 @@ Temporary Items
 .apdisk
 test.vbs
 *.xls
+comments_merge.vbs
+comments_merge_sql.vbs
+*.zip
+result.txt
+Extract_Previous_Comments.txt
+comments_merge.vbs
